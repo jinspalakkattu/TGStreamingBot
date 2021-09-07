@@ -113,6 +113,9 @@ async def radio(client, m: Message):
     if CHAT_ID in RADIO_CALL:
         await asyncio.sleep(1)
         await msg.edit(f"📻 **Started [Radio Streaming]({query})!**", disable_web_page_preview=True)
+        await asyncio.sleep(2)
+        await m.delete()
+        await msg.delete()
     else:
         await msg.edit("🔄 `Starting Radio Stream ...`")
         await asyncio.sleep(2)
@@ -121,6 +124,9 @@ async def radio(client, m: Message):
             await group_call.start(CHAT_ID)
             RADIO_CALL[CHAT_ID] = group_call
             await msg.edit(f"📻 **Started [Radio Streaming]({query})!**", disable_web_page_preview=True)
+            await asyncio.sleep(2)
+            await m.delete()
+            await msg.delete()
             try:
                 STREAM.remove(0)
             except:
@@ -152,6 +158,9 @@ async def stopradio(client, m: Message):
         await RADIO_CALL[CHAT_ID].stop()
         RADIO_CALL.pop(CHAT_ID)
         await msg.edit("⏹️ **Stopped Radio Streaming!**")
+        await asyncio.sleep(2)
+        await m.delete()
+        await msg.delete()
         try:
             STREAM.remove(1)
         except:

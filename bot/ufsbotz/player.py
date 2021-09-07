@@ -99,6 +99,7 @@ async def stream(client, m: Message):
                 await group_call.start_video(ytstream)
                 VIDEO_CALL[CHAT_ID] = group_call
                 # await msg.edit(f"▶️ **Started [YouTube Streaming]({query})!**", disable_web_page_preview=True)
+                await m.delete()
                 await msg.delete()
                 try:
                     STREAM.remove(0)
@@ -120,6 +121,7 @@ async def stream(client, m: Message):
                 await group_call.start_video(livestream)
                 VIDEO_CALL[CHAT_ID] = group_call
                 # await msg.edit(f"▶️ **Started [Live Streaming]({query})!**", disable_web_page_preview=True)
+                await m.delete()
                 await msg.delete()
                 try:
                     STREAM.remove(0)
@@ -142,6 +144,7 @@ async def stream(client, m: Message):
             await group_call.start_video(video)
             VIDEO_CALL[CHAT_ID] = group_call
             # await msg.edit("▶️ **Started Video Streaming!**")
+            await m.delete()
             await msg.delete()
             try:
                 STREAM.remove(0)
@@ -171,7 +174,8 @@ async def endstream(client, m: Message):
         await VIDEO_CALL[CHAT_ID].stop()
         VIDEO_CALL.pop(CHAT_ID)
         await msg.edit("⏹️ **Stopped Video Streaming!**")
-        await sleep(2)
+        await asyncio.sleep(2)
+        await m.delete()
         await msg.delete()
         try:
             STREAM.remove(1)
