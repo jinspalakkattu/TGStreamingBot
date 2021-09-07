@@ -53,7 +53,7 @@
       },
       "REPLY_MESSAGE": {
         "description": "A reply message to those who message the USER account in PM. Make it blank if you do not need this feature.",
-        "value": "Hello Sir, I'm a bot to stream videos on telegram voice chat, not having time to chat with you 😂!",
+        "value": "Hello Dear, I'm a bot to stream videos on telegram voice chat, not having time to chat with you 😂!",
         "required": false
       }
     },

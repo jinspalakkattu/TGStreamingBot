@@ -37,7 +37,7 @@ class Config:
     API_HASH = os.environ.get("API_HASH", "786942f68ec94b810ef0388e3418e936")
     BOT_TOKEN = os.environ.get("BOT_TOKEN", "1931994342:AAGl7vcEuFNi-qosXykNOL70G-YOW24AYis")
     BOT_USERNAME = os.environ.get("BOT_USERNAME", "@UFSVCPlayer_Bot")
-    REPLY_MESSAGE = os.environ.get("REPLY_MESSAGE", "You Cant Message Me")
+    REPLY_MESSAGE = os.environ.get("REPLY_MESSAGE", "Hello Dear, I'm a bot to stream videos on telegram voice chat, not having time to chat with you 😂!")
     if REPLY_MESSAGE:
         REPLY_MESSAGE = REPLY_MESSAGE
     else:
