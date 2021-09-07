@@ -28,11 +28,11 @@ REPLY_MESSAGE = Config.REPLY_MESSAGE
 
 buttons = [
             [
-                InlineKeyboardButton("CHANNEL", url="https://t.me/AsmSafone"),
-                InlineKeyboardButton("SUPPORT", url="https://t.me/SafoTheBot"),
+                InlineKeyboardButton("CHANNEL", url="https://t.me/joinchat/7qlEga5lO0o2MTg0"),
+                InlineKeyboardButton("SUPPORT", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
             ],
             [
-                InlineKeyboardButton("🤖 MAKE YOUR OWN BOT 🤖", url="https://heroku.com/deploy?template=https://github.com/AsmSafone/VideoPlayerBot"),
+                InlineKeyboardButton("🤖 MAKE YOUR OWN BOT 🤖", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
             ]
          ]
 
@@ -40,11 +40,13 @@ buttons = [
 @ufs.on_inline_query()
 async def search(client, query):
     answers = []
-    if query.query == "SAF_ONE":
+    if query.query == "UFSBotz":
         answers.append(
             InlineQueryResultArticle(
                 title="Deploy Own Video Player Bot",
-                input_message_content=InputTextMessageContent(f"{REPLY_MESSAGE}\n\n<b>© Powered By : \n@AsmSafone | @SafoTheBot 👑</b>", disable_web_page_preview=True),
+                input_message_content=InputTextMessageContent(f"{REPLY_MESSAGE}\n\n<b>© Powered By : "
+                                                              f"\n@lnc3f3r | @UFSChatBot 👑</b>",
+                                                              disable_web_page_preview=True),
                 reply_markup=InlineKeyboardMarkup(buttons)
                 )
             )
@@ -55,7 +57,7 @@ async def search(client, query):
         await client.answer_inline_query(
             query.id,
             results=answers,
-            switch_pm_text=("✍️ Type An Video Name!"),
+            switch_pm_text="✍️ Type An Video Name!",
             switch_pm_parameter="help",
             cache_time=0
         )
@@ -65,7 +67,7 @@ async def search(client, query):
             answers.append(
                 InlineQueryResultArticle(
                     title=v["title"],
-                    description=("Duration: {} Views: {}").format(
+                    description="Duration: {} Views: {}".format(
                         v["duration"],
                         v["viewCount"]["short"]
                     ),

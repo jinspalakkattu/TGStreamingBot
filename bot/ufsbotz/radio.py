@@ -22,8 +22,28 @@ FFMPEG_PROCESSES = {}
 @ufs.on_message(filters.command(["radio", f"radio@{USERNAME}"]) & filters.user(ADMINS) & (filters.chat(CHAT_ID) | filters.private))
 async def radio(client, m: Message):
     if 1 in STREAM:
-        await m.reply_text("🤖 **Please Stop The Existing Stream!**")
-        return
+        process = FFMPEG_PROCESSES.get(CHAT_ID)
+        if process:
+            try:
+                process.send_signal(SIGINT)
+                await asyncio.sleep(1)
+            except Exception as e:
+                print(e)
+
+        if CHAT_ID in RADIO_CALL:
+            await RADIO_CALL[CHAT_ID].stop()
+            RADIO_CALL.pop(CHAT_ID)
+            try:
+                STREAM.remove(1)
+            except:
+                pass
+            try:
+                STREAM.add(0)
+            except:
+                pass
+
+        # await m.reply_text("🤖 **Please Stop The Existing Stream!**")
+        # return
 
     if not ' ' in m.text:
         await m.reply_text("❗ __Send Me An Live Radio Link / YouTube Live Video Link To Start Radio!__")
@@ -43,7 +63,7 @@ async def radio(client, m: Message):
             print(e)
 
     regex = r"^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+"
-    match = re.match(regex,query)
+    match = re.match(regex, query)
     if match:
         try:
             meta = ydl.extract_info(query, download=False)
