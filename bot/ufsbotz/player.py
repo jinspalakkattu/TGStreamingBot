@@ -34,7 +34,7 @@ from signal import SIGINT
 from asyncio import sleep
 from youtube_dl import YoutubeDL
 from bot.ufsbotz.nopm import User
-from config import Config, Database
+from config import Config, Sql as db
 from pyrogram import Client as ufs, filters
 from pyrogram.types import Message
 from pytgcalls import GroupCallFactory
@@ -43,9 +43,9 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 ADMINS = Config.ADMINS
 CHAT_ID = Config.CHAT_ID
 USERNAME = Config.BOT_USERNAME
-VIDEO_CALL = Database.VIDEO_CALL
-RADIO_CALL = Database.RADIO_CALL
-FFMPEG_PROCESSES = Database.FFMPEG_PROCESSES
+VIDEO_CALL = db.VIDEO_CALL
+RADIO_CALL = db.RADIO_CALL
+FFMPEG_PROCESSES = db.FFMPEG_PROCESSES
 
 ydl_opts = {
     "geo_bypass": True,
@@ -108,6 +108,9 @@ async def stream(client, m: Message):
             group_call = group_call_factory.get_group_call()
             if group_call.is_connected:
                 try:
+                    await group_call.stop()
+                    await sleep(3)
+                    await group_call.join(CHAT_ID)
                     await group_call.start_video(ytstream, with_audio=True)
                     VIDEO_CALL[CHAT_ID] = group_call
                     await msg.edit(f"▶️ **Started [YouTube Streaming]({query})!**", disable_web_page_preview=True)
@@ -134,6 +137,9 @@ async def stream(client, m: Message):
             group_call = group_call_factory.get_group_call()
             if group_call.is_connected:
                 try:
+                    await group_call.stop()
+                    await sleep(3)
+                    await group_call.join(CHAT_ID)
                     await group_call.start_video(livestream, with_audio=True)
                     VIDEO_CALL[CHAT_ID] = group_call
                     await msg.edit(f"▶️ **Started [Live Streaming]({query})!**", disable_web_page_preview=True)
@@ -184,6 +190,9 @@ async def stream(client, m: Message):
         group_call = group_call_factory.get_group_call()
         if group_call.is_connected:
             try:
+                await group_call.stop()
+                await sleep(3)
+                await group_call.join(CHAT_ID)
                 await group_call.start_video(video, with_audio=True)
                 VIDEO_CALL[CHAT_ID] = group_call
                 await msg.edit(f"▶️ **Started [Video Streaming](https://t.me/lnc3f3r)!**",
