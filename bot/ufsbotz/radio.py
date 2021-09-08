@@ -38,6 +38,8 @@ ADMINS = Config.ADMINS
 CHAT_ID = Config.CHAT_ID
 USERNAME = Config.BOT_USERNAME
 
+
+VIDEO_CALL = {}
 RADIO_CALL = {}
 FFMPEG_PROCESSES = {}
 
@@ -56,6 +58,18 @@ async def radio(client, m: Message):
         if CHAT_ID in RADIO_CALL:
             await RADIO_CALL[CHAT_ID].stop()
             RADIO_CALL.pop(CHAT_ID)
+            try:
+                STREAM.remove(1)
+            except:
+                pass
+            try:
+                STREAM.add(0)
+            except:
+                pass
+
+        if CHAT_ID in VIDEO_CALL:
+            await VIDEO_CALL[CHAT_ID].stop()
+            VIDEO_CALL.pop(CHAT_ID)
             try:
                 STREAM.remove(1)
             except:

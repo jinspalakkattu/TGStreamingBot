@@ -27,6 +27,7 @@ import time
 import ffmpeg
 import asyncio
 from os import path
+from signal import SIGINT
 from asyncio import sleep
 from config import Config
 from bot.ufsbotz.nopm import User
@@ -42,6 +43,8 @@ USERNAME = Config.BOT_USERNAME
 
 STREAM = {6}
 VIDEO_CALL = {}
+RADIO_CALL = {}
+FFMPEG_PROCESSES = {}
 
 ydl_opts = {
     "geo_bypass": True,
@@ -58,6 +61,26 @@ async def stream(client, m: Message):
         if CHAT_ID in VIDEO_CALL:
             await VIDEO_CALL[CHAT_ID].stop()
             VIDEO_CALL.pop(CHAT_ID)
+            try:
+                STREAM.remove(1)
+            except:
+                pass
+            try:
+                STREAM.add(0)
+            except:
+                pass
+
+        process = FFMPEG_PROCESSES.get(CHAT_ID)
+        if process:
+            try:
+                process.send_signal(SIGINT)
+                await asyncio.sleep(1)
+            except Exception as e:
+                print(e)
+
+        if CHAT_ID in RADIO_CALL:
+            await RADIO_CALL[CHAT_ID].stop()
+            RADIO_CALL.pop(CHAT_ID)
             try:
                 STREAM.remove(1)
             except:
@@ -215,10 +238,10 @@ async def not_chat(_, m: Message):
             InlineKeyboardButton("SUPPORT", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
         ],
         [
-            InlineKeyboardButton("🤖 MAKE YOUR OWN BOT 🤖", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
+            InlineKeyboardButton("🤖 MAKE YOUR OWN BOT 🤖", url="https://github.com/jinspalakkattu/TGStreamingBot"),
         ]
     ]
     await m.reply_text(
         text="**Sorry, You Can't Use This Bot In This Group 🤷‍♂️! But You Can Make Your Own Bot Like This From The ["
-             "Source Code](https://t.me/joinchat/6YRhp5LyjXNkNGY0) Below 😉!**",
+             "Source Code](https://github.com/jinspalakkattu/TGStreamingBot) Below 😉!**",
         reply_markup=InlineKeyboardMarkup(buttons), disable_web_page_preview=True)

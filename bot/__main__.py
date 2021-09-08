@@ -29,7 +29,7 @@ from config import Config
 from bot.ufsbotz.nopm import User
 
 Bot = ufs(
-    "memory",
+    "ufsbotz",
     Config.API_ID,
     Config.API_HASH,
     bot_token=Config.BOT_TOKEN,

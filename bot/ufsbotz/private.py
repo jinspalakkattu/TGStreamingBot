@@ -51,7 +51,7 @@ HELP_TEXT = """
 \u2022 `/endstream` - stop streaming the video
 
 © **Powered By** : 
-**@lnc3f3r | @UniversalFilmStudio** 👑
+**@lnc3f3r | @UFSBotz** 👑
 """
 
 
@@ -65,7 +65,7 @@ async def cb_handler(client: ufs, query: CallbackQuery):
             ],
             [
                 InlineKeyboardButton("MORE BOTS", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
-                InlineKeyboardButton("SOURCE CODE", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
+                InlineKeyboardButton("SOURCE CODE", url="https://github.com/jinspalakkattu/TGStreamingBot"),
             ],
             [
                 InlineKeyboardButton("BACK HOME", callback_data="home"),
@@ -92,7 +92,7 @@ async def cb_handler(client: ufs, query: CallbackQuery):
             ],
             [
                 InlineKeyboardButton("MORE BOTS", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
-                InlineKeyboardButton("SOURCE CODE", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
+                InlineKeyboardButton("SOURCE CODE", url="https://github.com/jinspalakkattu/TGStreamingBot"),
             ],
             [
                 InlineKeyboardButton("❔ HOW TO USE ❔", callback_data="help"),
@@ -127,7 +127,7 @@ async def start(client, message):
             ],
             [
                 InlineKeyboardButton("MORE BOTS", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
-                InlineKeyboardButton("SOURCE CODE", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
+                InlineKeyboardButton("SOURCE CODE", url="https://github.com/jinspalakkattu/TGStreamingBot"),
             ],
             [
                 InlineKeyboardButton("❔ HOW TO USE ❔", callback_data="help"),
@@ -146,7 +146,7 @@ async def help(client, message):
             ],
             [
                 InlineKeyboardButton("MORE BOTS", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
-                InlineKeyboardButton("SOURCE CODE", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
+                InlineKeyboardButton("SOURCE CODE", url="https://github.com/jinspalakkattu/TGStreamingBot"),
             ],
             [
                 InlineKeyboardButton("BACK HOME", callback_data="home"),
