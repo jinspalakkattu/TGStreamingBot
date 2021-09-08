@@ -55,7 +55,7 @@ endstream - Stop Streaming & Left VC
 - [Telegram API key](https://docs.pyrogram.org/intro/quickstart#enjoy-the-api).
 - Latest [FFmpeg Python](https://www.ffmpeg.org/).
 - Pyrogram [String Session](https://replit.com/@ErichDaniken/Generate-Telegram-String-Session/) of the account.
-- The User Account Needs To Be An Admin In The Group / Channel.
+- The User Account Needs To Be An Admin In The Group / Channel. 
 
 ## Self Host
 ```sh
