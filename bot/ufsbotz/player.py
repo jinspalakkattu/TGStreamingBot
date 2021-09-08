@@ -23,15 +23,17 @@ SOFTWARE.
 
 import os
 import re
+import sys
 import time
 import ffmpeg
 import asyncio
+import subprocess
 from os import path
 from signal import SIGINT
 from asyncio import sleep
-from config import Config
-from bot.ufsbotz.nopm import User
 from youtube_dl import YoutubeDL
+from bot.ufsbotz.nopm import User
+from config import Config, Database
 from pyrogram import Client as ufs, filters
 from pyrogram.types import Message
 from pytgcalls import GroupCallFactory
@@ -40,11 +42,9 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 ADMINS = Config.ADMINS
 CHAT_ID = Config.CHAT_ID
 USERNAME = Config.BOT_USERNAME
-
-STREAM = {6}
-VIDEO_CALL = {}
-RADIO_CALL = {}
-FFMPEG_PROCESSES = {}
+VIDEO_CALL = Database.VIDEO_CALL
+RADIO_CALL = Database.RADIO_CALL
+FFMPEG_PROCESSES = Database.FFMPEG_PROCESSES
 
 ydl_opts = {
     "geo_bypass": True,
@@ -57,50 +57,38 @@ group_call_factory = GroupCallFactory(User, GroupCallFactory.MTPROTO_CLIENT_TYPE
 @ufs.on_message(filters.command(["stream", f"stream@{USERNAME}"]) & filters.user(ADMINS) & (
         filters.chat(CHAT_ID) | filters.private))
 async def stream(client, m: Message):
-    if 1 in STREAM:
-        if CHAT_ID in VIDEO_CALL:
-            await VIDEO_CALL[CHAT_ID].stop()
-            VIDEO_CALL.pop(CHAT_ID)
-            try:
-                STREAM.remove(1)
-            except:
-                pass
-            try:
-                STREAM.add(0)
-            except:
-                pass
+    media = m.reply_to_message
+    if not media and not ' ' in m.text:
+        await m.reply_text(
+            "❗ __Send Me An Live Stream Link / YouTube Video Link / Reply To An Video To Start Video Streaming!__")
+
+    elif ' ' in m.text:
+        text = m.text.split(' ', 1)
+        query = text[1]
+
+        msg = await m.reply_text("🔄 `Processing ...`")
 
         process = FFMPEG_PROCESSES.get(CHAT_ID)
         if process:
             try:
                 process.send_signal(SIGINT)
-                await asyncio.sleep(1)
+                await sleep(3)
             except Exception as e:
                 print(e)
+                pass
 
-        if CHAT_ID in RADIO_CALL:
+        vid_call = VIDEO_CALL.get(CHAT_ID)
+        if vid_call:
+            await VIDEO_CALL[CHAT_ID].stop()
+            VIDEO_CALL.pop(CHAT_ID)
+            await sleep(3)
+
+        rad_call = RADIO_CALL.get(CHAT_ID)
+        if rad_call:
             await RADIO_CALL[CHAT_ID].stop()
             RADIO_CALL.pop(CHAT_ID)
-            try:
-                STREAM.remove(1)
-            except:
-                pass
-            try:
-                STREAM.add(0)
-            except:
-                pass
-        # await m.reply_text("🤖 **Please Stop The Existing Stream!**")
-        # return
+            await sleep(3)
 
-    media = m.reply_to_message
-    if not media and not ' ' in m.text:
-        await m.reply_text(
-            "❗ __Send Me An YouTube Video Link / Live Stream Link / Reply To An Video To Start Streaming!__")
-
-    elif ' ' in m.text:
-        msg = await m.reply_text("🔄 `Processing ...`")
-        text = m.text.split(' ', 1)
-        query = text[1]
         regex = r"^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+"
         match = re.match(regex, query)
         if match:
@@ -116,104 +104,145 @@ async def stream(client, m: Message):
                 print(e)
                 return
             await sleep(2)
-            try:
-                group_call = group_call_factory.get_group_call()
-                await group_call.join(CHAT_ID)
-                await group_call.start_video(ytstream)
-                VIDEO_CALL[CHAT_ID] = group_call
-                # await msg.edit(f"▶️ **Started [YouTube Streaming]({query})!**", disable_web_page_preview=True)
-                await m.delete()
-                await msg.delete()
+            group_call = group_call_factory.get_group_call()
+            if group_call.is_connected:
                 try:
-                    STREAM.remove(0)
-                except:
-                    pass
+                    await group_call.start_video(ytstream, with_audio=True)
+                    VIDEO_CALL[CHAT_ID] = group_call
+                    await msg.edit(f"▶️ **Started [YouTube Streaming]({query})!**", disable_web_page_preview=True)
+                    await sleep(2)
+                    await m.delete()
+                    await msg.delete()
+                except Exception as e:
+                    await msg.edit(f"❌ **An Error Occoured!** \n\nError: `{e}`")
+            else:
                 try:
-                    STREAM.add(1)
-                except:
-                    pass
-            except Exception as e:
-                await msg.edit(f"❌ **An Error Occoured!** \n\nError: `{e}`")
+                    await group_call.join(CHAT_ID)
+                    await group_call.start_video(ytstream, with_audio=True)
+                    VIDEO_CALL[CHAT_ID] = group_call
+                    await msg.edit(f"▶️ **Started [YouTube Streaming]({query})!**", disable_web_page_preview=True)
+                    await sleep(2)
+                    await m.delete()
+                    await msg.delete()
+                except Exception as e:
+                    await msg.edit(f"❌ **An Error Occoured!** \n\nError: `{e}`")
         else:
             await msg.edit("🔄 `Starting Live Stream ...`")
             livestream = query
             await sleep(2)
-            try:
-                group_call = group_call_factory.get_group_call()
-                await group_call.join(CHAT_ID)
-                await group_call.start_video(livestream)
-                VIDEO_CALL[CHAT_ID] = group_call
-                # await msg.edit(f"▶️ **Started [Live Streaming]({query})!**", disable_web_page_preview=True)
-                await m.delete()
-                await msg.delete()
+            group_call = group_call_factory.get_group_call()
+            if group_call.is_connected:
                 try:
-                    STREAM.remove(0)
-                except:
-                    pass
+                    await group_call.start_video(livestream, with_audio=True)
+                    VIDEO_CALL[CHAT_ID] = group_call
+                    await msg.edit(f"▶️ **Started [Live Streaming]({query})!**", disable_web_page_preview=True)
+                    await sleep(2)
+                    await m.delete()
+                    await msg.delete()
+                except Exception as e:
+                    await msg.edit(f"❌ **An Error Occoured!** \n\nError: `{e}`")
+            else:
                 try:
-                    STREAM.add(1)
-                except:
-                    pass
-            except Exception as e:
-                await msg.edit(f"❌ **An Error Occoured!** \n\nError: `{e}`")
+                    await group_call.join(CHAT_ID)
+                    await group_call.start_video(livestream, with_audio=True)
+                    VIDEO_CALL[CHAT_ID] = group_call
+                    await msg.edit(f"▶️ **Started [Live Streaming]({query})!**", disable_web_page_preview=True)
+                    await sleep(2)
+                    await m.delete()
+                    await msg.delete()
+                except Exception as e:
+                    await msg.edit(f"❌ **An Error Occoured!** \n\nError: `{e}`")
 
     elif media.video or media.document:
-        msg = await m.reply_text("🔄 `Downloading ...`")
+        msg = await m.reply_text("🔄 `Processing ...`")
+
+        process = FFMPEG_PROCESSES.get(CHAT_ID)
+        if process:
+            try:
+                process.send_signal(SIGINT)
+                await sleep(3)
+            except Exception as e:
+                print(e)
+                pass
+
+        vid_call = VIDEO_CALL.get(CHAT_ID)
+        if vid_call:
+            await VIDEO_CALL[CHAT_ID].stop()
+            VIDEO_CALL.pop(CHAT_ID)
+            await sleep(3)
+
+        rad_call = RADIO_CALL.get(CHAT_ID)
+        if rad_call:
+            await RADIO_CALL[CHAT_ID].stop()
+            RADIO_CALL.pop(CHAT_ID)
+            await sleep(3)
+
+        await msg.edit("🔄 `Downloading ...`")
         video = await client.download_media(media)
         await sleep(2)
-        try:
-            group_call = group_call_factory.get_group_call()
-            await group_call.join(CHAT_ID)
-            await group_call.start_video(video)
-            VIDEO_CALL[CHAT_ID] = group_call
-            # await msg.edit("▶️ **Started Video Streaming!**")
-            await m.delete()
-            await msg.delete()
+        group_call = group_call_factory.get_group_call()
+        if group_call.is_connected:
             try:
-                STREAM.remove(0)
-            except:
-                pass
+                await group_call.start_video(video, with_audio=True)
+                VIDEO_CALL[CHAT_ID] = group_call
+                await msg.edit(f"▶️ **Started [Video Streaming](https://t.me/lnc3f3r)!**",
+                               disable_web_page_preview=True)
+                await sleep(2)
+                await m.delete()
+                await msg.delete()
+            except Exception as e:
+                await msg.edit(f"❌ **An Error Occoured!** \n\nError: `{e}`")
+        else:
             try:
-                STREAM.add(1)
-            except:
-                pass
-        except Exception as e:
-            await msg.edit(f"❌ **An Error Occoured!** \n\nError: `{e}`")
+                await group_call.join(CHAT_ID)
+                await group_call.start_video(video, with_audio=True)
+                VIDEO_CALL[CHAT_ID] = group_call
+                await msg.edit(f"▶️ **Started [Video Streaming](https://t.me/lnc3f3r)!**",
+                               disable_web_page_preview=True)
+                await sleep(2)
+                await m.delete()
+                await msg.delete()
+            except Exception as e:
+                await msg.edit(f"❌ **An Error Occoured!** \n\nError: `{e}`")
     else:
         await m.reply_text(
-            "❗ __Send Me An Live Stream Link / YouTube Video Link / Reply To An Video To Start Streaming!__")
+            "❗ __Send Me An Live Stream Link / YouTube Video Link / Reply To An Video To Start Video Streaming!__")
         return
 
 
 @ufs.on_message(filters.command(["endstream", f"endstream@{USERNAME}"]) & filters.user(ADMINS) & (
         filters.chat(CHAT_ID) | filters.private))
 async def endstream(client, m: Message):
-    if 0 in STREAM:
-        await m.reply_text("🤖 **Please Start An Stream First!**")
-        return
-
     msg = await m.reply_text("🔄 `Processing ...`")
-    if CHAT_ID in VIDEO_CALL:
+
+    process = FFMPEG_PROCESSES.get(CHAT_ID)
+    if process:
+        try:
+            process.send_signal(SIGINT)
+            await sleep(3)
+        except Exception as e:
+            print(e)
+            pass
+
+    if CHAT_ID in RADIO_CALL:
+        await RADIO_CALL[CHAT_ID].stop()
+        RADIO_CALL.pop(CHAT_ID)
+        await msg.edit("⏹️ **Stopped Radio Streaming!**")
+        await sleep(2)
+        await m.delete()
+        await msg.delete()
+    elif CHAT_ID in VIDEO_CALL:
         await VIDEO_CALL[CHAT_ID].stop()
         VIDEO_CALL.pop(CHAT_ID)
         await msg.edit("⏹️ **Stopped Video Streaming!**")
-        await asyncio.sleep(2)
+        await sleep(2)
         await m.delete()
         await msg.delete()
-        try:
-            STREAM.remove(1)
-        except:
-            pass
-        try:
-            STREAM.add(0)
-        except:
-            pass
     else:
         await msg.edit("🤖 **Please Start An Stream First!**")
 
 
-admincmds = ["stream", "radio", "stopradio", "endstream", f"stream@{USERNAME}", f"radio@{USERNAME}",
-             f"stopradio@{USERNAME}", f"endstream@{USERNAME}"]
+admincmds=["stream", "radio", "endstream", f"stream@{USERNAME}", f"radio@{USERNAME}", f"endstream@{USERNAME}"]
 
 
 @ufs.on_message(filters.command(admincmds) & ~filters.user(ADMINS) & (filters.chat(CHAT_ID) | filters.private))

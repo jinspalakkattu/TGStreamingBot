@@ -40,18 +40,17 @@ HELP_TEXT = """
 
 🏷️ --**Common Commands**-- :
 
-\u2022 `/start` - start the bot
-\u2022 `/help` - show the help message
+\u2022 `/start` - Start the bot
+\u2022 `/help` - Show help message
 
 🏷️ --**Admin Only Commands**-- :
 
-\u2022 `/stream` - start streaming the video
-\u2022 `/radio` - start streaming the radio
-\u2022 `/stopradio` - stop streaming the radio
-\u2022 `/endstream` - stop streaming the video
+\u2022 `/stream` - Start streaming the video
+\u2022 `/radio` - Start streaming the radio
+\u2022 `/endstream` - Stop streaming the video
 
 © **Powered By** : 
-**@lnc3f3r | @UFSBotz** 👑
+**@lnc3f3r | 𝙐𝙁𝙎 𝘽𝙤𝙩𝙯** 👑
 """
 
 

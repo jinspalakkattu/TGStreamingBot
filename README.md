@@ -37,8 +37,7 @@ start - Start The Bot
 help - Show Help Message
 radio - Start Radio Streaming
 stream - Start Video Streaming
-stopradio - Stop Radio Streaming
-endstream - Stop Video Streaming
+endstream - Stop Streaming & Left VC
 ```
 
 ## Config Vars
@@ -56,7 +55,7 @@ endstream - Stop Video Streaming
 - [Telegram API key](https://docs.pyrogram.org/intro/quickstart#enjoy-the-api).
 - Latest [FFmpeg Python](https://www.ffmpeg.org/).
 - Pyrogram [String Session](https://replit.com/@ErichDaniken/Generate-Telegram-String-Session/) of the account.
-- The User Account Needs To Be An Admin In The Channel/Group.
+- The User Account Needs To Be An Admin In The Group / Channel.
 
 ## Self Host
 ```sh
@@ -66,7 +65,7 @@ $ sudo apt-get install python3-pip ffmpeg
 $ pip3 install -U pip
 $ pip3 install -U -r requirements.txt
 # <create .env variables appropriately>
-$ python3 main.py
+$ python3 -m bot.py
 ```
 
 
