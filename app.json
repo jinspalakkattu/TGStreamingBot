@@ -19,32 +19,32 @@
       "API_ID": {
         "description": "User Account Telegram API_ID get it from my.telegram.org/apps",
         "required": true,
-        "value": "5639554"
+        "value": ""
       },
       "API_HASH": {
         "description": "User Account Telegram API_HASH get it from my.telegram.org/apps",
         "required": true,
-        "value": "786942f68ec94b810ef0388e3418e936"
+        "value": ""
       },
       "BOT_TOKEN": {
         "description": "Your Telegram Bot Token, get it from @Botfather XD",
         "required": true,
-        "value": "1931994342:AAGl7vcEuFNi-qosXykNOL70G-YOW24AYis"
+        "value": ""
       },
       "SESSION_STRING": {
         "description": "Pyrogram Session String of User Account, get it from @genStr_robot",
         "required": true,
-        "value": "BAAguwl4rmXCEaXhVHt0MKUiJQfihbd7elh4KhVY-JQdcEeQ0BmyRwnDbpio3DsFGxh9kjrnd1qsR1I-0UWLhHMq2xq7J_BmFai_rKBfvZBhiewj9COEz021RNKmFDP4QZebyA2yShEAlFQ2LbAXb4PnEyeVatWO2FszOxi8PmpZwyaZEPcPezxHP6e5PF3pvUnhfNVqvHy1zToDAPbRRKQaiRt8dN4DoEfkf0WzJLXeW2m3PPJy3MARiS4wF4AvgGzFb64YDu81Gm01VEJm_Q8Mjs1ED4l17m4VkkgeSOsfygal1-N-cx065hot4HremowjDwGOR0V4Cb8YYAhCZStBW3-ClQA"
+        "value": ""
       },
       "CHAT_ID": {
         "description": "ID of your Channel or Group where the bot will works or stream videos",
         "required": true,
-        "value": "-1001492474364"
+        "value": ""
       },
       "AUTH_USERS": {
         "description": "ID of Auth Users who can use Admin commands (for multiple users seperated by space)",
         "required": true,
-        "value": "1535083157"
+        "value": ""
       },
       "REPLY_MESSAGE": {
         "description": "A reply message to those who message the USER account in PM. Make it blank if you do not need this feature.",
