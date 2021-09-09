@@ -31,11 +31,6 @@
         "required": true,
         "value": "1931994342:AAGl7vcEuFNi-qosXykNOL70G-YOW24AYis"
       },
-      "BOT_USERNAME": {
-        "description": "Your Telegram Bot Username without @, get it from @Botfather XD",
-        "required": true,
-        "value": "@UFSVCPlayer_Bot"
-      },
       "SESSION_STRING": {
         "description": "Pyrogram Session String of User Account, get it from @genStr_robot",
         "required": true,

@@ -23,12 +23,13 @@ SOFTWARE.
 """
 import asyncio
 from config import Config
+from bot.ufsbotz.misc import USERNAME
 from pyrogram import Client as ufs, filters
-from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import MessageNotModified
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
 CHAT_ID = Config.CHAT_ID
-USERNAME = Config.BOT_USERNAME
+
 HOME_TEXT = "👋🏻 **Hi [{}](tg://user?id={})**, \n\nI'm **TG Streaming Bot**. \nI Can Stream Lives, Radios, " \
             "YouTube Videos & Telegram Video Files On Voice Chat Of Telegram Channels & Groups 😉! \n\n**Made With ❤️ " \
             "By @lnc3f3r!** 👑 "
@@ -49,6 +50,7 @@ HELP_TEXT = """
 \u2022 `/stream` - Start streaming the video
 \u2022 `/radio` - Start streaming the radio
 \u2022 `/endstream` - Stop streaming the video
+\u2022 `/restart` - Restart the bot (Owner only)
 
 © **Powered By** : 
 **@lnc3f3r | 𝙐𝙁𝙎 𝘽𝙤𝙩𝙯** 👑

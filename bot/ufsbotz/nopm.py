@@ -22,12 +22,12 @@ SOFTWARE.
 """
 
 import asyncio
-from pyrogram import Client as ufs, filters
 from config import Config
+from bot.ufsbotz.misc import USERNAME
+from pyrogram import Client as ufs, filters
 from pyrogram.errors import BotInlineDisabled
 
 ADMINS = Config.ADMINS
-USERNAME = Config.BOT_USERNAME
 REPLY_MESSAGE = Config.REPLY_MESSAGE
 
 User = ufs(
