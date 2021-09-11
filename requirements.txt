@@ -4,6 +4,6 @@ youtube_dl
 ffmpeg-python
 python-dotenv
 youtube_search_python
-py-tgcalls==0.8.0
-# pytgcalls==3.0.0.dev16
+# py-tgcalls==0.8.0
+pytgcalls==3.0.0.dev16
 git+https://github.com/pyrogram/pyrogram@master
