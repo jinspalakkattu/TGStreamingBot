@@ -22,20 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import os
 import re
-import sys
-import time
-import ffmpeg
-import asyncio
-import subprocess
-from os import path
 from signal import SIGINT
 from asyncio import sleep
 from youtube_dl import YoutubeDL
 from bot.ufsbotz.nopm import User
 from pyrogram.types import Message
-from config import Config, Sql as db
+from bot.config import Config, Sql as db
 from bot.ufsbotz.misc import USERNAME
 from pytgcalls import GroupCallFactory
 from pyrogram import Client as ufs, filters

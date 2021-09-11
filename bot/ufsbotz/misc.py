@@ -22,10 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import os
-import asyncio
-from config import Config
-from pyrogram import Client, filters
+from bot.config import Config
+from pyrogram import Client
 from pyrogram.raw import functions, types
 
 bot = Client(

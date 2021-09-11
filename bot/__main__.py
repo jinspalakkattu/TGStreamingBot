@@ -22,10 +22,8 @@ SOFTWARE.
 """
 
 import os
-import sys
-import asyncio
 from pyrogram import Client as ufs, idle
-from config import Config
+from bot.config import Config
 from bot.ufsbotz.nopm import User
 
 Bot = ufs(
@@ -40,9 +38,9 @@ if not os.path.isdir("./downloads"):
 
 Bot.start()
 User.start()
-print("\nVideo Player Bot Started, Join!")
+print("\n[INFO] - STARTED VIDEO PLAYER BOT, JOIN !")
 
 idle()
 Bot.stop()
 User.stop()
-print("\nVideo Player Bot Stopped, Join!")
+print("\n[INFO] - STOPPED VIDEO PLAYER BOT, JOIN !")

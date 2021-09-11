@@ -30,7 +30,7 @@ import asyncio
 import subprocess
 from signal import SIGINT
 from pyrogram.types import Message
-from config import Config, Sql as db
+from bot.config import Config, Sql as db
 from bot.ufsbotz.misc import USERNAME
 from pyrogram import Client as ufs, filters
 from bot.ufsbotz.player import ydl, group_call_factory
@@ -135,22 +135,8 @@ async def restart(client, m: Message):
             print(e)
             pass
         FFMPEG_PROCESSES[CHAT_ID] = ""
-
-    vid_call = VIDEO_CALL.get(CHAT_ID)
-    if vid_call:
-        await VIDEO_CALL[CHAT_ID].stop()
-        VIDEO_CALL.pop(CHAT_ID)
-        await asyncio.sleep(3)
-
-    rad_call = RADIO_CALL.get(CHAT_ID)
-    if rad_call:
-        await RADIO_CALL[CHAT_ID].stop()
-        RADIO_CALL.pop(CHAT_ID)
-        await asyncio.sleep(3)
-
     os.execl(sys.executable, sys.executable, *sys.argv)
     try:
         await k.edit("✅ **Restarted Successfully! \nJoin with us For More!**")
-        await k.reply_to_message.delete()
     except:
         pass

@@ -21,8 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import asyncio
-from config import Config
+from bot.config import Config
 from pyrogram import Client as ufs, errors
 from youtubesearchpython import VideosSearch
 from pyrogram.handlers import InlineQueryHandler

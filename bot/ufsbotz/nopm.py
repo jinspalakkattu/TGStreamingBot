@@ -21,8 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import asyncio
-from config import Config
+from bot.config import Config
 from bot.ufsbotz.misc import USERNAME
 from pyrogram import Client as ufs, filters
 from pyrogram.errors import BotInlineDisabled
