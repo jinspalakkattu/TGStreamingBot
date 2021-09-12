@@ -46,10 +46,12 @@ HELP_TEXT = """
 
 🏷️ --**Admin Only Commands**-- :
 
+\u2022 `/play` - Start streaming the audio
 \u2022 `/stream` - Start streaming the video
-\u2022 `/radio` - Start streaming the radio
-\u2022 `/endstream` - Stop streaming the video
-\u2022 `/restart` - Restart the bot (Owner only)
+\u2022 `/pause` - Pause the current stream
+\u2022 `/resume` - Resume the paused stream
+\u2022 `/endstream` - Stop streaming & left vc
+\u2022 `/restart` - Update and restart the bot
 
 © **Powered By** : 
 **@lnc3f3r | 𝙐𝙁𝙎 𝘽𝙤𝙩𝙯** 👑
