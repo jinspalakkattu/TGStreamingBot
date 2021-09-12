@@ -161,20 +161,23 @@ async def pause(_, m: Message):
 
     if chat_id in AUDIO_CALL:
         await AUDIO_CALL[chat_id].set_audio_pause(True)
-        await m.reply_text("⏸ **Paused Audio Streaming !**")
+        msg = await m.reply_text("⏸ **Paused Audio Streaming !**")
         await sleep(2)
         await m.delete()
+        await msg.delete()
 
     elif chat_id in VIDEO_CALL:
         await VIDEO_CALL[chat_id].set_video_pause(True)
-        await m.reply_text("⏸ **Paused Video Streaming !**")
+        msg = await m.reply_text("⏸ **Paused Video Streaming !**")
         await sleep(2)
         await m.delete()
+        await msg.delete()
 
     else:
-        await m.reply_text("❌ **Noting Is Streaming !**")
+        msg = await m.reply_text("❌ **Noting Is Streaming !**")
         await sleep(2)
         await m.delete()
+        await msg.delete()
 
 
 @ufs.on_message(filters.command(["resume", f"resume@{USERNAME}"]) & filters.user(ADMINS) & filters.chat(CHAT_ID) | filters.private)
@@ -183,20 +186,23 @@ async def resume(_, m: Message):
 
     if chat_id in AUDIO_CALL:
         await AUDIO_CALL[chat_id].set_audio_pause(False)
-        await m.reply_text("▶️ **Resumed Audio Streaming !**")
+        msg = await m.reply_text("▶️ **Resumed Audio Streaming !**")
         await sleep(2)
         await m.delete()
+        await msg.delete()
 
     elif chat_id in VIDEO_CALL:
         await VIDEO_CALL[chat_id].set_video_pause(False)
-        await m.reply_text("▶️ **Resumed Video Streaming !**")
+        msg = await m.reply_text("▶️ **Resumed Video Streaming !**")
         await sleep(2)
         await m.delete()
+        await msg.delete()
 
     else:
-        await m.reply_text("❌ **Noting Is Streaming !**")
+        msg = await m.reply_text("❌ **Noting Is Streaming !**")
         await sleep(2)
         await m.delete()
+        await msg.delete()
 
 
 @ufs.on_message(filters.command(["endstream", f"endstream@{USERNAME}"]) & filters.user(ADMINS) & filters.chat(CHAT_ID) | filters.private)
