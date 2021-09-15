@@ -39,9 +39,9 @@ from threading import Thread
 from datetime import datetime
 from youtube_dl import YoutubeDL
 from pytgcalls.types import Update
-from ufsbotz.nopm import group_call, USER
 from pytgcalls import PyTgCalls, StreamType
 from pyrogram.raw.types import InputChannel
+from tgbot.ufsbotz.nopm import group_call, USER
 from pyrogram.raw.functions.channels import GetFullChannel
 from pyrogram.errors.exceptions.bad_request_400 import BadRequest
 from pytgcalls.exceptions import GroupCallNotFound, NoActiveGroupCall
