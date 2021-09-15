@@ -162,7 +162,7 @@ async def stream(client, m: Message):
         await download(track)
 
 
-@ufs.on_message(filters.command(["leave", f"leave@{Config.BOT_USERNAME}"]) & admin_filter | filters.private)
+@ufs.on_message(filters.command(["leave", f"leave@{USERNAME}"]) & admin_filter | filters.private)
 async def leave_voice_chat(_, m: Message):
     if not Config.CALL_STATUS:
         return await m.reply("Not Joined Any Voice Chat.")
@@ -172,7 +172,7 @@ async def leave_voice_chat(_, m: Message):
     await m.delete()
 
 
-@ufs.on_message(filters.command(["shuffle", f"shuffle@{Config.BOT_USERNAME}"]) & admin_filter & (
+@ufs.on_message(filters.command(["shuffle", f"shuffle@{USERNAME}"]) & admin_filter & (
         filters.chat(Config.CHAT_ID) | filters.private))
 async def shuffle_play_list(client, m: Message):
     if not Config.CALL_STATUS:
@@ -197,7 +197,7 @@ async def shuffle_play_list(client, m: Message):
             return
 
 
-@ufs.on_message(filters.command(["clearplaylist", f"clearplaylist@{Config.BOT_USERNAME}"]) & admin_filter & (
+@ufs.on_message(filters.command(["clearplaylist", f"clearplaylist@{USERNAME}"]) & admin_filter & (
         filters.chat(Config.CHAT_ID) | filters.private))
 async def clear_play_list(client, m: Message):
     if not Config.CALL_STATUS:
@@ -221,8 +221,8 @@ async def clear_play_list(client, m: Message):
     return
 
 
-@ufs.on_message(filters.command(["yplay", f"yplay@{Config.BOT_USERNAME}"]) & admin_filter & (
-        filters.chat(Config.CHAT) | filters.private))
+@ufs.on_message(filters.command(["yplay", f"yplay@{USERNAME}"]) & admin_filter & (
+        filters.chat(Config.CHAT_ID) | filters.private))
 async def yt_play_list(client, m: Message):
     if m.reply_to_message is not None and m.reply_to_message.document:
         if m.reply_to_message.document.file_name != "YouTube_PlayList.json":
@@ -261,7 +261,7 @@ async def yt_play_list(client, m: Message):
         return
 
 
-@ufs.on_message(filters.command(["stream", f"stream@{Config.BOT_USERNAME}"]) & admin_filter & (
+@ufs.on_message(filters.command(["stream", f"stream@{USERNAME}"]) & admin_filter & (
         filters.chat(Config.CHAT_ID) | filters.private))
 async def stream(client, m: Message):
     if m.reply_to_message:
@@ -292,12 +292,12 @@ async def stream(client, m: Message):
 
 
 admincmds = ["yplay", "leave", "pause", "resume", "skip", "restart", "volume", "shuffle", "clearplaylist", "export",
-             "import", "update", 'replay', 'logs', 'stream', f'stream@{Config.BOT_USERNAME}',
-             f'logs@{Config.BOT_USERNAME}', f"replay@{Config.BOT_USERNAME}", f"yplay@{Config.BOT_USERNAME}",
-             f"leave@{Config.BOT_USERNAME}", f"pause@{Config.BOT_USERNAME}", f"resume@{Config.BOT_USERNAME}",
-             f"skip@{Config.BOT_USERNAME}", f"restart@{Config.BOT_USERNAME}", f"volume@{Config.BOT_USERNAME}",
-             f"shuffle@{Config.BOT_USERNAME}", f"clearplaylist@{Config.BOT_USERNAME}", f"export@{Config.BOT_USERNAME}",
-             f"import@{Config.BOT_USERNAME}", f"update@{Config.BOT_USERNAME}"]
+             "import", "update", 'replay', 'logs', 'stream', f'stream@{USERNAME}',
+             f'logs@{USERNAME}', f"replay@{USERNAME}", f"yplay@{USERNAME}",
+             f"leave@{USERNAME}", f"pause@{USERNAME}", f"resume@{USERNAME}",
+             f"skip@{USERNAME}", f"restart@{USERNAME}", f"volume@{USERNAME}",
+             f"shuffle@{USERNAME}", f"clearplaylist@{USERNAME}", f"export@{USERNAME}",
+             f"import@{USERNAME}", f"update@{USERNAME}"]
 
 
 @ufs.on_message(filters.command(admincmds) & ~filters.user(ADMINS) & filters.chat(CHAT_ID))
@@ -314,7 +314,7 @@ async def notforu(_, m: Message):
     except:
         pass
 
-allcmd = ["play", "player", f"play@{Config.BOT_USERNAME}", f"player@{Config.BOT_USERNAME}"] + admincmds
+allcmd = ["play", "player", f"play@{USERNAME}", f"player@{USERNAME}"] + admincmds
 
 
 @ufs.on_message(filters.command(allcmd) & ~filters.chat(Config.CHAT_ID) & filters.group)
