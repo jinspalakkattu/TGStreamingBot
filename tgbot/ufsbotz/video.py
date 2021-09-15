@@ -38,6 +38,7 @@ from tgbot.utility import download, get_admins, is_admin, get_buttons, get_link,
 
 ADMINS = Config.ADMINS
 CHAT_ID = Config.CHAT_ID
+USERNAME = Config.BOT_USERNAME
 VIDEO_CALL = db.VIDEO_CALL
 AUDIO_CALL = db.AUDIO_CALL
 
@@ -331,17 +332,3 @@ async def not_chat(_, m: Message):
         text="**Sorry, You Can't Use This Bot In This Group 🤷‍♂️! But You Can Make Your Own Bot Like This From The ["
              "Source Code](https://github.com/jinspalakkattu/TGStreamingBot) Below 😉!**",
         reply_markup=InlineKeyboardMarkup(buttons), disable_web_page_preview=True)
-
-
-# pytgcalls handlers
-
-@group_call.on_audio_playout_ended
-async def audio_ended_handler(_, __):
-    await group_call.stop()
-    print("[INFO] - AUDIO_CALL ENDED !")
-
-
-@group_call.on_video_playout_ended
-async def video_ended_handler(_, __):
-    await group_call.stop()
-    print("[INFO] - VIDEO_CALL ENDED !")
