@@ -33,7 +33,8 @@ REPLY_MESSAGE = Config.REPLY_MESSAGE
 USER = ufs(
     Config.SESSION_STRING,
     Config.API_ID,
-    Config.API_HASH
+    Config.API_HASH,
+    plugins=dict(root="tgbot/ufsbotz")
 )
 group_call = PyTgCalls(USER, cache_duration=180)
 
