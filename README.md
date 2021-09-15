@@ -1,4 +1,5 @@
 # Telegram Video Player Bot
+
 ![GitHub Repo stars](https://img.shields.io/github/stars/jinspalakkattu/TGStreamingBot?color=blue&style=flat)
 ![GitHub forks](https://img.shields.io/github/forks/jinspalakkattu/TGStreamingBot?color=green&style=flat)
 ![GitHub issues](https://img.shields.io/github/issues/jinspalakkattu/TGStreamingBot)
@@ -12,90 +13,92 @@
 [![Bot Updates](https://img.shields.io/badge/TGStreamingBot-Updates%20Channel-green)](https://t.me/joinchat/7qlEga5lO0o2MTg0)
 [![Bot Support](https://img.shields.io/badge/TGStreamingBot-Support%20Group-blue)](https://t.me/joinchat/6YRhp5LyjXNkNGY0)
 
-An Telegram Bot By [ᏞuᏟᎥfᎬᏒ](https://t.me/lnc3f3r) To Stream Videos in Telegram Voice Chat.
+Telegram bot to stream videos in telegram voicechat for both groups and channels. Supports live strams, YouTube videos
+and telegram media.
 
-## Main Features
+## Config Vars:
 
-- Supports Live Streaming.
-- Supports YouTube Streaming.
-- Supports Live Radio Streaming.
-- Supports Video Files Streaming.
-- Supports YouTube Live Streaming.
-- User Account Protection (PM Guard)
+### Mandatory Vars
 
-## Deploy Own Bot
+1. `API_ID` : Get From [my.telegram.org](https://my.telegram.org/)
+2. `API_HASH` : Get from [my.telegram.org](https://my.telegram.org)
+3. `BOT_TOKEN` : [@Botfather](https://telegram.dog/BotFather)
+4. `SESSION_STRING` : Generate From
+   here [![GenerateStringName](https://img.shields.io/badge/repl.it-generateStringName-yellowgreen)](https://replit.com/@jinspalakkattu/TG-Session-String)
+5. `CHAT` : ID of Channel/Group where the bot plays Music.
 
-### Railway (Recommended)
+### Optional Vars
+
+1. `LOG_GROUP` : Group to send Playlist, if CHAT is a Group()
+2. `ADMINS` : ID of users who can use admin commands.
+3. `STARTUP_STREAM` : This will be streamed on startups and restarts of bot. You can use either any STREAM_URL or a
+   direct link of any video or a Youtube Live link. You can also use YouTube Playlist.Find a Telegram Link for your
+   playlist from [PlayList Dumb](https://telegram.dog/DumpPlaylist) or get a PlayList
+   from [PlayList Extract](https://telegram.dog/GetAPlaylistbot). The PlayList link should in
+   form `https://t.me/DumpPlaylist/xxx`.
+4. `REPLY_MESSAGE` : A reply to those who message the USER account in PM. Leave it blank if you do not need this
+   feature.
+5. `ADMIN_ONLY` : Pass `Y` If you want to make /play command only for admins of `CHAT`. By default /play is available
+   for all.
+
+## Requirements
+
+- Python 3.8 or Higher.
+- [FFMpeg](https://www.ffmpeg.org/).
+
+## Deploy to Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/jinspalakkattu/TGStreamingBot/tree/py-tgcalls)
+
+## Deploy to Railway
+
 <p>
-    <a href="https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2Fjinspalakkattu%2FTGStreamingBot&envs=API_ID%2CAPI_HASH%2CBOT_TOKEN%2CSESSION_STRING%2CCHAT_ID%2CAUTH_USERS%2CREPLY_MESSAGE&optionalEnvs=REPLY_MESSAGE&API_IDDesc=User+Account+Telegram+API_ID+get+it+from+my.telegram.org%2Fapps&API_HASHDesc=User+Account+Telegram+API_HASH+get+it+from+my.telegram.org%2Fapps&BOT_TOKENDesc=Your+Telegram+Bot+Token%2C+get+it+from+%40Botfather+XD&SESSION_STRINGDesc=Pyrogram+Session+String+of+User+Account%2C+get+it+from+%40genStr_robot&CHAT_IDDesc=ID+of+your+Channel+or+Group+where+the+bot+will+works+or+stream+videos&AUTH_USERSDesc=ID+of+Auth+Users+who+can+use+Admin+commands+%28for+multiple+users+seperated+by+space%29&REPLY_MESSAGEDesc=A+reply+message+to+those+who+message+the+USER+account+in+PM.+Make+it+blank+if+you+do+not+need+this+feature.&REPLY_MESSAGEDefault=Hello+Dear%2C+I%27m+a+bot+to+stream+videos+on+telegram+voice+chat%2C+not+having+time+to+chat+with+you+%F0%9F%98%82%21&referralCode=UFSBotz">
+    <a href="https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2Fjinspalakkattu%2FTGStreamingBot%2Ftree%2Fpy-tgcalls&envs=API_ID%2CAPI_HASH%2CBOT_TOKEN%2CSESSION_STRING%2CCHAT_ID%2CAUTH_USERS%2CREPLY_MESSAGE&optionalEnvs=REPLY_MESSAGE&API_IDDesc=User+Account+Telegram+API_ID+get+it+from+my.telegram.org%2Fapps&API_HASHDesc=User+Account+Telegram+API_HASH+get+it+from+my.telegram.org%2Fapps&BOT_TOKENDesc=Your+Telegram+Bot+Token%2C+get+it+from+%40Botfather+XD&SESSION_STRINGDesc=Pyrogram+Session+String+of+User+Account%2C+get+it+from+%40genStr_robot&CHAT_IDDesc=ID+of+your+Channel+or+Group+where+the+bot+will+works+or+stream+videos&AUTH_USERSDesc=ID+of+Auth+Users+who+can+use+Admin+commands+%28for+multiple+users+seperated+by+space%29&REPLY_MESSAGEDesc=A+reply+message+to+those+who+message+the+USER+account+in+PM.+Make+it+blank+if+you+do+not+need+this+feature.&REPLY_MESSAGEDefault=Hello+Dear%2C+I%27m+a+bot+to+stream+videos+on+telegram+voice+chat%2C+not+having+time+to+chat+with+you+%F0%9F%98%82%21&referralCode=UFSBotz">
         <img src="https://img.shields.io/badge/Deploy%20To%20Railway-blueviolet?style=for-the-badge&logo=railway" width="200"/>
     </a>
 </p>
 
-### Heroku (Don't Complain)
-<p><a href="https://heroku.com/deploy?template=https://github.com/jinspalakkattu/TGStreamingBot"><img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200"/></a></p>
+⚠️ Warning:
 
-## Commands (Botfather)
+Railway.app may ban your railway account if you tried to play DMCA contents. Its is hereby forewarned that we wont be
+responsible for any loss caused to you. Proceed at your own risk.
+
+## Deploy to VPS
+
 ```sh
-start - Start The Bot
-help - Show Help Message
-play - Start Audio Playback
-stream - Start Video Streaming
-pause - Pause The Current Stream
-resume - Resume The Paused Stream
-endstream - Stop Streaming & Left VC
+git clone https://github.com/jinspalakkattu/TGStreamingBot
+cd VCPlayerBot
+pip3 install -r requirements.txt
+# <Create Variables appropriately>
+python3 main.py
 ```
 
-## Config Vars
-1. `API_ID` : User Account Telegram API_ID, get it from my.telegram.org
-2. `API_HASH` : User Account Telegram API_HASH, get it from my.telegram.org
-3. `BOT_TOKEN` : Your Telegram Bot Token, get it from @Botfather XD
-4. `SESSION_STRING` : Pyrogram Session String of User Account, get it from [TG String Session](https://replit.com/@ErichDaniken/Generate-Telegram-String-Session/)
-5. `CHAT_ID` : ID of Channel/Group where the bot will works or stream videos (For Multiple Chats Seperated By Space).
-6. `AUTH_USERS` : ID of Users who can use Admins commands (for multiple users seperated by space).
-7. `REPLY_MESSAGE` : A reply to those who message the USER account in PM. Leave it blank if you do not need this feature.
+## Features
 
-## Requirements
-- Python 3.6 or Higher.
-- [Telegram API key](https://docs.pyrogram.org/intro/quickstart#enjoy-the-api).
-- Latest [FFmpeg Python](https://www.ffmpeg.org/).
-- Pyrogram [String Session](https://replit.com/@ErichDaniken/Generate-Telegram-String-Session/) of the account.
-- The User Account Needs To Be An Admin In The Group / Channel. 
+- Playlist, queue.
+- Supports Play from Youtube Playlist.
+- Change VoiceChat title to current playing song name.
+- Supports Live streaming from youtube
+- Play from telegram file supported.
+- Starts Radio after if no songs in playlist.
+- Automatically downloads audio for the first two tracks in the playlist to ensure smooth playing
+- Automatic restart even if heroku restarts.
+- Support exporting and importing playlist.
 
-## Self Host
-```sh
-$ git clone https://github.com/jinspalakkattu/TGStreamingBot.git
-$ cd VideoPlayerBot
-$ sudo apt-get install python3-pip ffmpeg
-$ pip3 install -U pip
-$ pip3 install -U -r requirements.txt
-# <create .env variables appropriately>
-$ python3 -m tgbot.py
-```
+### Note
+
+[Note To A So Called Dev](https://telegram.dog/GetTGLink/802):
+
+Kanging this codes and and editing a few lines and releasing a V.x of your repo wont make you a Developer. Fork the repo
+and edit as per your needs.
+
+## LICENSE
+
+- [GNU General Public License](./LICENSE)
+
+## CREDITS
+
+- [py-tgcalls](https://github.com/pytgcalls/pytgcalls)
+- [Dan](https://github.com/delivrance) for [Pyrogram](https://github.com/pyrogram/pyrogram)
 
 
-## License
-```sh
-TGStreamingBot, Telegram Video Chat Bot
-Copyright (c) 2021  [Jins Mathew](https://github.com/jinspalakkattu)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>
-```
-
-## Credits
-
-- [Me](https://github.com/jinspalakkattu) for [Noting](https://github.com/jinspalakkattu/TGStreamingBot) 😬
-- [Dan](https://github.com/delivrance) for [Pyrogram](https://github.com/pyrogram/pyrogram) ❤️
-- [MarshalX](https://github.com/MarshalX) for [pytgcalls](https://github.com/MarshalX/tgcalls) ❤️
-- And Thanks To All [Contributors](https://github.com/AsmSafone/VideoPlayerBot/graphs/contributors)! ❤️
