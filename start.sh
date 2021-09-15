@@ -4,4 +4,4 @@ cd /TGStreamingBot
 echo "[INFO] - INSTALLING REQUIREMENTS ..."
 pip3 install -U -r requirements.txt
 echo "[INFO] - STARTED VIDEO PLAYER BOT ..."
-python3 -m bot
+python3 main.py

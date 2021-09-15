@@ -70,7 +70,7 @@ $ sudo apt-get install python3-pip ffmpeg
 $ pip3 install -U pip
 $ pip3 install -U -r requirements.txt
 # <create .env variables appropriately>
-$ python3 -m bot.py
+$ python3 -m tgbot.py
 ```
 
 

@@ -21,7 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from bot.config import Config
+from config import Config
 from pyrogram import Client as ufs, errors
 from youtubesearchpython import VideosSearch
 from pyrogram.handlers import InlineQueryHandler
@@ -31,13 +31,20 @@ REPLY_MESSAGE = Config.REPLY_MESSAGE
 
 buttons = [
             [
-                InlineKeyboardButton("CHANNEL", url="https://t.me/joinchat/7qlEga5lO0o2MTg0"),
-                InlineKeyboardButton("SUPPORT", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
+                InlineKeyboardButton("📣 CHANNEL", url="https://t.me/joinchat/7qlEga5lO0o2MTg0"),
+                InlineKeyboardButton("👥 SUPPORT", url="https://t.me/joinchat/6YRhp5LyjXNkNGY0"),
             ],
             [
                 InlineKeyboardButton("🤖 MAKE YOUR OWN BOT 🤖", url="https://github.com/jinspalakkattu/TGStreamingBot"),
             ]
          ]
+
+
+def get_cmd(dur):
+    if dur:
+        return "/play"
+    else:
+        return "/stream"
 
 
 @ufs.on_inline_query()
@@ -47,9 +54,12 @@ async def search(client, query):
         answers.append(
             InlineQueryResultArticle(
                 title="Deploy Own Video Player Bot",
-                input_message_content=InputTextMessageContent(f"{REPLY_MESSAGE}\n\n<b>© Powered By : "
-                                                              f"\n@lnc3f3r | @UFSChatBot 👑</b>",
-                                                              disable_web_page_preview=True),
+                input_message_content=InputTextMessageContent(
+                    f"{REPLY_MESSAGE}\n\n**You Can't Use This Bot In Your Group, For That You Have To Make "
+                    f"Your Own Bot From The [SOURCE CODE](https://github.com/jinspalakkattu/VCPlayerBot) Below.**"
+                    f"\n\n<b>© Powered By : "
+                    f"\n@lnc3f3r | @UFSChatBot 👑</b>",
+                    disable_web_page_preview=True),
                 reply_markup=InlineKeyboardMarkup(buttons)
                 )
             )
@@ -91,7 +101,7 @@ async def search(client, query):
             await query.answer(
                 results=answers,
                 cache_time=0,
-                switch_pm_text=("❌ No Results Found!"),
+                switch_pm_text="❌ No Results Found!",
                 switch_pm_parameter="",
             )
 

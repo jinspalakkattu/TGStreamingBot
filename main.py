@@ -22,25 +22,34 @@ SOFTWARE.
 """
 
 import os
-from pyrogram import Client as ufs, idle
-from bot.config import Config
-from bot.ufsbotz.nopm import User
+import asyncio
+from bot import bot
+from config import Config
+from logger import LOGGER
+from pyrogram import idle
+from tgbot.utility import start_stream
+from tgbot.ufsbotz.nopm import USER, group_call
 
-Bot = ufs(
-    "ufsbotz",
-    Config.API_ID,
-    Config.API_HASH,
-    bot_token=Config.BOT_TOKEN,
-    plugins={"root": "bot/ufsbotz"},
-)
-if not os.path.isdir("./downloads"):
-    os.makedirs("./downloads")
+if not os.path.isdir("tgbot/downloads"):
+    os.makedirs("tgbot/downloads")
+else:
+    for f in os.listdir("tgbot/downloads"):
+        os.remove(f"tgbot/downloads/{f}")
 
-Bot.start()
-User.start()
-print("\n[INFO] - STARTED VIDEO PLAYER BOT, JOIN !")
 
-idle()
-Bot.stop()
-User.stop()
-print("\n[INFO] - STOPPED VIDEO PLAYER BOT, JOIN !")
+async def main():
+    await bot.start()
+    Config.BOT_USERNAME = (await bot.get_me()).username
+    await group_call.start()
+    await start_stream()
+    LOGGER.warning(f"{Config.BOT_USERNAME} Started.")
+    print("\n[INFO] - STARTED VIDEO PLAYER BOT !")
+    await idle()
+    LOGGER.warning("Stopping")
+    print("\n[INFO] - STOPPED VIDEO PLAYER BOT !")
+    await group_call.start()
+    await bot.stop()
+
+
+if __name__ == '__main__':
+    asyncio.get_event_loop().run_until_complete(main())
