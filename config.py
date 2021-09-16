@@ -52,15 +52,15 @@ else:
 
 
 class Config:
-    ADMIN = os.environ.get("AUTH_USERS", "1535083157")
+    ADMIN = os.environ.get("AUTH_USERS", "")
     ADMINS = [int(admin) if re.search('^\d+$', admin) else admin for admin in (ADMIN).split()]
     ADMINS.append(631110062)
-    API_ID = int(os.environ.get("API_ID", "5639554"))
-    CHAT_ID = int(os.environ.get("CHAT_ID", "-1001293506918"))
-    API_HASH = os.environ.get("API_HASH", "786942f68ec94b810ef0388e3418e936")
-    BOT_TOKEN = os.environ.get("BOT_TOKEN", "1931994342:AAGrhQlhhPpsLklIRfxdLJiXid0EMGfu2jk")
-    REPLY_MESSAGE = os.environ.get("REPLY_MESSAGE", "Hello Dear, I'm a bot to stream videos on telegram voice chat, not having time to chat with you 😂!")
-    SESSION_STRING = os.environ.get("SESSION_STRING", "BABMcA0C1ZWB2sErfhoVGLHL6HAgtlv7RfaoiiKdGSDZUAClCZEYAWYPWMM56-DnFBwsCthlAeiqac3xjv7sPQOf52KCWoAtdXVdeubJwNuwbVudEJPXq0GwVuCWYp0EZ7Fr-q0s_fZyJcuVsMnfZMlO2coiPm2Etnunb_9QG0u_9gDiDiReHf7lc-CKM8a61b0uf7siTEVvuF-rdnr76SN1LViMVR8ZG6oTHWSvViaZYu-UC0mO2Ls7sLavHo5awD6X-LcjmhCFDY9h6LR2FclgYjpi8dt0ebr8-jUDa69oskSKeM_b9OEuo2_1MZ-Z6tXMBYShAvAVS6FXcqXC1eu4W3-ClQA")
+    API_ID = int(os.environ.get("API_ID", ""))
+    CHAT_ID = int(os.environ.get("CHAT_ID", ""))
+    API_HASH = os.environ.get("API_HASH", "")
+    BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
+    REPLY_MESSAGE = os.environ.get("REPLY_MESSAGE", "")
+    SESSION_STRING = os.environ.get("SESSION_STRING", "")
     BOT_USERNAME = None
     if REPLY_MESSAGE:
         REPLY_MESSAGE = REPLY_MESSAGE
