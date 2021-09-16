@@ -24,9 +24,6 @@ SOFTWARE.
 import os
 import re
 from logger import LOGGER
-from dotenv import load_dotenv
-
-load_dotenv()
 
 Y_PLAY = False
 YSTREAM = False
