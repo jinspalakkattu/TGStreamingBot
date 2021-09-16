@@ -21,14 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+from pytgcalls import PyTgCalls
+from pyrogram import Client as ufs
 from config import Config
-from pyrogram import Client
 
-
-bot = Client(
-    "ufsbotz",
+USER = ufs(
+    Config.SESSION_STRING,
     Config.API_ID,
     Config.API_HASH,
-    bot_token=Config.BOT_TOKEN,
-    plugins=dict(root="tgbot/ufsbotz")
+    plugins=dict(root="tgbot/ufsnopm")
 )
+group_call = PyTgCalls(USER, cache_duration=180)

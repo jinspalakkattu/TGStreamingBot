@@ -28,7 +28,7 @@ from config import Config
 from logger import LOGGER
 from pyrogram import idle
 from tgbot.utility import start_stream
-from tgbot.ufsbotz.nopm import USER, group_call
+from user import group_call
 
 if not os.path.isdir("tgbot/downloads"):
     os.makedirs("tgbot/downloads")

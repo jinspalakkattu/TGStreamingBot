@@ -22,7 +22,7 @@ SOFTWARE.
 """
 
 from config import Config
-from pytgcalls import PyTgCalls
+from logger import LOGGER
 from pyrogram import Client as ufs, filters
 from pyrogram.errors import BotInlineDisabled
 
@@ -30,27 +30,35 @@ ADMINS = Config.ADMINS
 USERNAME = Config.BOT_USERNAME
 REPLY_MESSAGE = Config.REPLY_MESSAGE
 
-USER = ufs(
-    Config.SESSION_STRING,
-    Config.API_ID,
-    Config.API_HASH,
-    plugins=dict(root="tgbot/ufsbotz")
-)
-group_call = PyTgCalls(USER, cache_duration=180)
+
+async def is_reply(_, client, message):
+    if Config.REPLY_MESSAGE:
+        return True
+    else:
+        return False
 
 
-@USER.on_message(filters.private & filters.incoming & ~filters.bot & ~filters.service & ~filters.me & ~filters.edited)
+reply_filter = filters.create(is_reply)
+
+
+@ufs.on_message(filters.private & filters.incoming & ~filters.bot & ~filters.service & ~filters.me & ~filters.edited)
 async def nopm(client, message):
     if REPLY_MESSAGE is not None:
         try:
             inline = await client.get_inline_bot_results(USERNAME, "UFSBotz")
-            await client.send_inline_bot_result(
+            m = await client.send_inline_bot_result(
                 message.chat.id,
                 query_id=inline.query_id,
                 result_id=inline.results[0].id,
                 hide_via=True
             )
+            old = Config.msg.get(message.chat.id)
+            if old:
+                await client.delete_messages(message.chat.id, [old["msg"], old["s"]])
+            Config.msg[message.chat.id] = {"msg": m.updates[1].message.id, "s": message.message_id}
         except BotInlineDisabled:
+            LOGGER.error(
+                f"Error: Inline Mode For @{USERNAME} Is Not Enabled. Enable From @Botfather To Enable PM Permit.")
             for admin in ADMINS:
                 try:
                     await client.send_message(chat_id=admin,

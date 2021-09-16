@@ -21,11 +21,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+from config import Config
+from pyrogram.types import Message
+from pyrogram import Client as ufs, filters
 from tgbot.utility import get_playlist_str, get_admins, is_admin, \
     restart_playout, skip, pause, resume, volume, get_buttons
-from pyrogram import Client as ufs, filters
-from pyrogram.types import Message
-from config import Config
 
 admin_filter = filters.create(is_admin)
 
